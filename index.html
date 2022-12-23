@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <title>Notice</title>
+    <style>
+        .pen {
+            max-width: 20px;
+            max-height: 20px;
+        }
+
+        .pen::after {
+            content: '\00a0';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-image: url(pen.svg);
+            padding: 0;
+        }
+
+        div.pen::after {
+            max-width: 20px;
+            width: 100%;
+            height: 0;
+            padding: 0 0 100% 0;
+        }
+    </style>
+    <script src="main.js"></script>
+</head>
+<body  class="d-flex flex-column min-vh-100">
+<header>
+    <nav class="navbar navbar-expand-lg" style="background-color: mediumslateblue">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">uNotice</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll ms-auto me-3" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Export</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Import</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-dark" type="submit" style="color: black; background-color: mediumslateblue">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="text-center row m-4 position-relative min-vh-100">
+    <div class="col-4 p-2 d-flex flex-column align-items-start min-vh-100" style="background-color: aliceblue; height: 100%">
+        <div class="col-6">
+            <button type="button" class="btn btn-icon btn-outline-dark col-12" style="background-color: aliceblue; color: black"><span class='pen me-1'></span>Write</button>
+        </div>
+        <div style="min-width: 100%; max-width: 100%">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h5 class="card-title" style="overflow: hidden; text-overflow: ellipsis; height: 1.5em; white-space: nowrap">Title</h5>
+                    <div class="card-text" style="overflow: hidden; max-height: 1.5em">Description and everything I can write here</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8 p-2 min-vh-100" style="background-color: ghostwhite;  min-height: 100%; height: 100%">
+        <div class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title">Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Date Time</h6>
+                <div class="card-text">Description and everything I can write here</div>
+                <div class="card-text">Attached</div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="mt-auto lh-lg">
+
+</footer>
+</body>
+</html>
