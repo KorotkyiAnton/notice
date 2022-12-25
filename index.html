@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://apis.google.com/js/platform.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
@@ -32,6 +33,31 @@
             height: 0;
             padding: 0 0 100% 0;
         }
+
+        #listOfNotice::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .trash {
+            max-width: 20px;
+            max-height: 20px;
+        }
+
+        .trash::after {
+            content: '\00a0';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-image: url(trash.svg);
+            padding: 0;
+        }
+
+        div.trash::after {
+            max-width: 20px;
+            width: 100%;
+            height: 0;
+            padding: 0 0 100% 0;
+        }
     </style>
     <script src="main.js"></script>
 </head>
@@ -47,16 +73,16 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll ms-auto me-3" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Export</a>
+                        <a class="nav-link active" aria-current="page" href="#" onclick="exportContacts()">Export</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Import</a>
+                        <a class="nav-link active" aria-current="page" href="#" onclick="importContacts()">Import</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-dark" type="submit" style="color: black; background-color: mediumslateblue">Search</button>
-                </form>
+                <div class="d-flex" role="search">
+                    <input id="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-dark" style="color: black; background-color: mediumslateblue" onclick="searchContact()">Search</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -65,32 +91,53 @@
 <main class="text-center row m-4 position-relative min-vh-100">
     <div class="col-4 p-2 d-flex flex-column align-items-start min-vh-100" style="background-color: aliceblue; height: 100%">
         <div class="col-6">
-            <button type="button" class="btn btn-icon btn-outline-dark col-12" style="background-color: aliceblue; color: black"><span class='pen me-1'></span>Write</button>
+            <button type="button" onclick="AdderSettings()" class="btn btn-icon btn-outline-dark col-12 mb-3" style="background-color: aliceblue; color: black"><span class='pen me-1'></span>Write</button>
         </div>
-        <div style="min-width: 100%; max-width: 100%">
-            <div class="card mt-2">
-                <div class="card-body">
-                    <h5 class="card-title" style="overflow: hidden; text-overflow: ellipsis; height: 1.5em; white-space: nowrap">Title</h5>
-                    <div class="card-text" style="overflow: hidden; max-height: 1.5em">Description and everything I can write here</div>
-                </div>
+        <div id="listOfNotice" style="min-width: 100%; max-width: 100%; overflow: scroll; max-height: 100%; height: 100vh; min-height: 100%;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
         </div>
     </div>
 
-    <div class="col-8 p-2 min-vh-100" style="background-color: ghostwhite;  min-height: 100%; height: 100%">
-        <div class="card mt-2">
-            <div class="card-body">
-                <h5 class="card-title">Title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Date Time</h6>
-                <div class="card-text">Description and everything I can write here</div>
-                <div class="card-text">Attached</div>
-            </div>
-        </div>
+    <div id="singleNotice" class="col-8 p-2 min-vh-100" >
+
     </div>
+
+    <form id="importContactForm" class="collapse" action="" method="post">
+        <label for="file" class="text-white">Choose file to attach:</label>
+        <input id="file" type="file">
+    </form>
 </main>
 
-<footer class="mt-auto lh-lg">
-
+<footer class="mt-auto lh-lg bg-dark bg-gradient">
+    <ul class="list-group list-group-flush d-flex flex-row justify-content-center" id="bottomMenu">
+        <li class="list-group-item bg-transparent">
+            <a class="nav-link" href="https://github.com/KorotkyiAnton/practice" target="_blank">Git Hub</a>
+        </li>
+        <li class="list-group-item bg-transparent text-white ">
+            <a class="nav-link" href="https://korotkyianton.github.io/practice/" target="_blank">Git Page</a>
+        </li>
+        <li class="list-group-item bg-transparent text-white ">
+            <a class="nav-link"
+               href="https://script.google.com/u/2/home/projects/1lLY9nZ-XE2rTkORuHijunPuSXGEwi_Dm6VT_SDKnee3xdyVEKLcXM8kW/edit"
+               target="_blank">Google Script</a>
+        </li>
+        <li class="list-group-item bg-transparent text-white ">
+            <a class="nav-link"
+               href="https://docs.google.com/spreadsheets/d/1izn5fZ1-Iurdz9EKH4lxSu72BZVtOKfpoQpzLVqHpL0/edit#gid=0"
+               target="_blank">Google Spreadsheet</a>
+        </li>
+        <li class="list-group-item bg-transparent text-white">
+            <a class="nav-link" data-bs-toggle="collapse" href="#aboutUs">About Us</a>
+        </li>
+        <li class="list-group-item bg-transparent text-white ">
+            <a class="nav-link" href="#" onclick="sync()">Table Synchronization</a>
+        </li>
+    </ul>
+    <div class="collapse text-white mb-4" id="aboutUs">
+        <span class="d-flex justify-content-center">Практична робота "Менеджер контактів" виконана студентами групи КІУКІ-19-6 Гуренко Даніїлом, Ляпіним Ярославом, Коротким Антоном</span>
+    </div>
 </footer>
 </body>
 </html>
